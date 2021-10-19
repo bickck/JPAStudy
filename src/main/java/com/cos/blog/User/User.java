@@ -37,7 +37,7 @@ public class User{
 	private static final long serialVersionUID = 8197753800476393295L;
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Column(name = "USER_NAME",nullable = true)
 	private String name;
@@ -76,11 +76,11 @@ public class User{
 		this.userType = userType;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
