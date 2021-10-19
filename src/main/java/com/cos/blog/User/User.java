@@ -1,7 +1,9 @@
 package com.cos.blog.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +12,23 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ManyToAny;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.cos.blog.List.BoardList;
+
+import lombok.Data;
+
 @Entity
-@Table(name = "USER")
-public class User implements Serializable{
+//@Table(name = "USER")
+public class User{
 
 	
 	/**
@@ -26,19 +39,24 @@ public class User implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Column(name = "USER_NAME")
+	@Column(name = "USER_NAME",nullable = true)
 	private String name;
 	
-	@Column(name = "USER_ID")
+	@Column(name = "USER_ID",nullable = true)
 	private String user_id;
 	
-	@Column(name = "USER_PW")
+	@Column(name = "USER_PW",nullable = true)
 	private String user_pw;
 	
+	@Column(name =" TYPE" ,nullable = true)
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
 	
+	@OneToMany(mappedBy = "username")
+	private List<BoardList> list = new ArrayList<BoardList>();
 	
+	
+	@DateTimeFormat
 	private Date date;
 	
 	@PrePersist
@@ -50,12 +68,12 @@ public class User implements Serializable{
 		
 	}
 
-	public User(int id, String name, String user_id, String user_pw) {
+	public User(String name, String user_id, String user_pw, UserType userType) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.user_id = user_id;
 		this.user_pw = user_pw;
+		this.userType = userType;
 	}
 
 	public int getId() {
@@ -89,5 +107,35 @@ public class User implements Serializable{
 	public void setUser_pw(String user_pw) {
 		this.user_pw = user_pw;
 	}
+
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+
+	public List<BoardList> getList() {
+		return list;
+	}
+
+	public void setList(List<BoardList> list) {
+		this.list = list;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 }

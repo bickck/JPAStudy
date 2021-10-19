@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import com.cos.blog.ListService.ListService;
 import com.cos.blog.User.User;
 import com.cos.blog.User.UserRepository;
 
@@ -14,10 +15,9 @@ public class JavaProject1Application {
 		ConfigurableApplicationContext context =  SpringApplication.run(JavaProject1Application.class, args);
 		
 		
-		UserRepository userRepository = context.getBean(UserRepository.class);
+		ListService listService = context.getBean(ListService.class);
 		
-		userRepository.save(new User(1,"dong","1234","1234"));
-		User user = userRepository.findUser("dong");
+		listService.findBoardInfo();
 	}
 
 }
