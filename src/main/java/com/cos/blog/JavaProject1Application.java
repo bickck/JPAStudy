@@ -8,6 +8,8 @@ import com.cos.blog.ListService.ListService;
 import com.cos.blog.User.User;
 import com.cos.blog.User.UserRepository;
 
+
+// SpringBootApplication는 spring boot가 시작되면 무조건 실행되는 곳
 @SpringBootApplication
 public class JavaProject1Application {
 
