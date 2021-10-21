@@ -67,6 +67,13 @@ public class User{
 	public User() {
 		
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", userType=" + userType + "]";
+	}
 
 	public User(String name, String user_id, String user_pw, UserType userType) {
 		super();

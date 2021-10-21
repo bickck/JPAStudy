@@ -23,7 +23,6 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
-			<version>4.1.4</version>
 		</dependency>
 
 		<dependency>
@@ -61,8 +60,15 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
+			
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>

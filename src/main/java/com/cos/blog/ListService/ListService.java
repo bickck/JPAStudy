@@ -1,5 +1,7 @@
 package com.cos.blog.ListService;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -42,7 +44,6 @@ public class ListService {
 		//entityManager.persist(user2);	
 		
 		//userRepository.save(user);
-		
 		
 		//AnnotationConfigApplicationContext configApplicationContext =
 		//		new AnnotationConfigApplicationContext(UserRepository.class);
