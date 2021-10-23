@@ -1,9 +1,12 @@
 package com.cos.blog.ListService;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 //import rg.springframework.transaction.annotation;
 
@@ -29,11 +32,15 @@ public class ListService {
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
 	
-	@Autowired
+	
+	// EntityManger은 스프링 빈에 등록되지 않는다. 따라서 @Autowired을 사용할 수 없다.
+	// 
+	
+	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
 	private EntityManager entityManager;
 	
-	@Transactional
-	public void findBoardInfo() {
+	@Transactional()
+	public void findBoardInfo()  {
 		
 		User user = new User("adc","123","123", UserType.User);
 	
@@ -43,14 +50,14 @@ public class ListService {
 		
 		//entityManager.persist(user2);	
 		
-		//userRepository.save(user);
+	//	userRepository.save(user);
 		
 		//AnnotationConfigApplicationContext configApplicationContext =
 		//		new AnnotationConfigApplicationContext(UserRepository.class);
 		
 		//configApplicationContext.getBean(null);
 		
-		//userRepository.deleteAll(); <= userRepository에 연결된 데이터베이서 데이터 전체 삭제
+		//userRepository.deleteAll(); //<= userRepository에 연결된 데이터베이서 데이터 전체 삭제
 		
 	}
 }

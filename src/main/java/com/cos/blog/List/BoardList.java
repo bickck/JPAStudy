@@ -29,4 +29,44 @@ public class BoardList {
 	@JoinColumn(name = "user_id", nullable = true)
 	private User username;
 
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public int getRecommand() {
+		return recommand;
+	}
+
+
+	public void setRecommand(int recommand) {
+		this.recommand = recommand;
+	}
+
+
+	public User getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(User username) {
+		this.username = username;
+	}
+	
 }

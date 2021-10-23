@@ -20,6 +20,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
 import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cos.blog.List.BoardList;
@@ -75,6 +76,7 @@ public class User{
 		return "User [id=" + id + ", name=" + name + ", userType=" + userType + "]";
 	}
 
+	
 	public User(String name, String user_id, String user_pw, UserType userType) {
 		super();
 		this.name = name;
@@ -142,7 +144,5 @@ public class User{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
+		
 }

@@ -1,9 +1,12 @@
-package com.cos.blog.User;
+package com.cos.blog.UserManagment;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cos.blog.User.User;
+import com.cos.blog.User.UserRepository;
 
 public class UserUpdate {
 	
