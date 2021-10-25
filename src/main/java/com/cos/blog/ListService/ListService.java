@@ -2,6 +2,7 @@ package com.cos.blog.ListService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.List.BoardList;
 import com.cos.blog.List.BoardListRepository;
 import com.cos.blog.User.User;
 import com.cos.blog.User.UserRepository;
@@ -28,36 +30,28 @@ public class ListService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private EntityManagerFactory entityManagerFactory;
-	
-	
-	// EntityManger은 스프링 빈에 등록되지 않는다. 따라서 @Autowired을 사용할 수 없다.
-	// 
 	
 	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
 	private EntityManager entityManager;
 	
-	@Transactional()
+	@Transactional
 	public void findBoardInfo()  {
-		
-		User user = new User("adc","123","123", UserType.User);
-	
-		User user2 = new User("abcd","1414","2525",UserType.ADMIN);
-		User user3 = new User("a","244","323",UserType.User);
-		//entityManager.persist(user);
-		
-		//entityManager.persist(user2);	
-		
-	//	userRepository.save(user);
-		
-		//AnnotationConfigApplicationContext configApplicationContext =
-		//		new AnnotationConfigApplicationContext(UserRepository.class);
-		
-		//configApplicationContext.getBean(null);
-		
-		//userRepository.deleteAll(); //<= userRepository에 연결된 데이터베이서 데이터 전체 삭제
+		User user = userRepository.getById((long) 0);
+		BoardList boardList = new BoardList("test", "testBody", user);
+		saveBoard(boardList);
 		
 	}
+	
+	public boolean saveBoard(BoardList boardList) {
+		boardListRepository.save(boardList);
+		return true;
+	}
 }
+//
+//@Autowired
+//private EntityManagerFactory entityManagerFactory;
+// EntityManger은 스프링 빈에 등록되지 않는다. 따라서 @Autowired을 사용할 수 없다.
+//@PersistenceContext(type = PersistenceContextType.TRANSACTION)
+//private EntityManager entityManager;

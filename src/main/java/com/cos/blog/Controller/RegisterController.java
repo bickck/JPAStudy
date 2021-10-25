@@ -22,8 +22,8 @@ import com.cos.blog.UserManagment.UserRegister;
 @RestController
 public class RegisterController {
 	
-	@Autowired
-	UserRegister userRegister;
+	//@Autowired
+	//UserRegister userRegister;
 
 	@PostMapping(path = "/postUserRegister")
 	public String postInsert(@RequestBody String user) {

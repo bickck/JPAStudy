@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,46 +13,40 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.ManyToAny;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cos.blog.List.BoardList;
 
-import lombok.Data;
-
 @Entity
-//@Table(name = "USER")
-public class User{
+public class User implements Serializable{
 
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8197753800476393295L;
+	private static final long serialVersionUID = 1L;
+	
 
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id 
+	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "USER_NAME",nullable = true)
+	@Column(name = "USERNAME",nullable = true)
 	private String name;
 	
-	@Column(name = "USER_ID",nullable = true)
-	private String user_id;
 	
-	@Column(name = "USER_PW",nullable = true)
-	private String user_pw;
+	@Column(name = "USERID",nullable = true)
+	private String userId;
+	
+	@Column(name = "USERPW",nullable = true)
+	private String userPw;
 	
 	@Column(name =" TYPE" ,nullable = true)
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
+	
 	
 	@OneToMany(mappedBy = "username")
 	private List<BoardList> list = new ArrayList<BoardList>();
@@ -68,20 +63,28 @@ public class User{
 	public User() {
 		
 	}
-	
-	
 
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", userType=" + userType + "]";
+		return "User [id=" + id + ", name=" + name + ", user_id=" + userId + ", user_pw=" + userPw + ", userType="
+				+ userType + ", list=" + list + ", date=" + date + "]";
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(date, id, list, name, userType, userId, userPw);
+	}
+
+	// 동일성 비교 : 인스턴스 참조 값을 비교, ==사용
+	// 동등성 비교 : 인스턴스 값을 비교, equals()
 	
 	public User(String name, String user_id, String user_pw, UserType userType) {
 		super();
 		this.name = name;
-		this.user_id = user_id;
-		this.user_pw = user_pw;
+		this.userId = user_id;
+		this.userPw = user_pw;
 		this.userType = userType;
 	}
 
@@ -101,20 +104,22 @@ public class User{
 		this.name = name;
 	}
 
-	public String getUser_id() {
-		return user_id;
+	
+
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getUser_pw() {
-		return user_pw;
+	public String getUserPw() {
+		return userPw;
 	}
 
-	public void setUser_pw(String user_pw) {
-		this.user_pw = user_pw;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
 
 	public UserType getUserType() {
@@ -140,9 +145,4 @@ public class User{
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-		
 }

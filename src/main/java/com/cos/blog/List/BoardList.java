@@ -2,10 +2,14 @@ package com.cos.blog.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GeneratorType;
 
 import com.cos.blog.User.User;
 
@@ -14,20 +18,31 @@ import com.cos.blog.User.User;
 public class BoardList {
 	
 	
-	@Id
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BOARD_ID")
 	private int id;
 	
 	@Column(name = "LIST_NAME")
-	private String name;
+	private String head;
 	
 	@Column(name = "RECOMAND")
 	private int recommand;
 	
-
+	@Column(name ="Body")
+	private String listBody;
+	
 	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = true)
 	private User username;
+
+
+	
+	
+	public BoardList(String head, String listBody, User username) {
+		super();
+		this.head = head;
+		this.listBody = listBody;
+		this.username = username;
+	}
 
 
 	public int getId() {
@@ -40,13 +55,23 @@ public class BoardList {
 	}
 
 
-	public String getName() {
-		return name;
+	public String getHead() {
+		return head;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHead(String head) {
+		this.head = head;
+	}
+
+
+	public String getListBody() {
+		return listBody;
+	}
+
+
+	public void setListBody(String listBody) {
+		this.listBody = listBody;
 	}
 
 
