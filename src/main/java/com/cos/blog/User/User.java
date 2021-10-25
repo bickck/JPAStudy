@@ -10,9 +10,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,8 +32,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 
-	@Id 
-	@Column(name = "ID")
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "USERNAME",nullable = true)
@@ -47,10 +49,7 @@ public class User implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
 	
-	
-	@OneToMany(mappedBy = "username")
-	private List<BoardList> list = new ArrayList<BoardList>();
-	
+	// User은 많은 Board를 가질 수 있다.	
 	
 	@DateTimeFormat
 	private Date date;
@@ -68,13 +67,13 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", user_id=" + userId + ", user_pw=" + userPw + ", userType="
-				+ userType + ", list=" + list + ", date=" + date + "]";
+				+ userType + ", date=" + date + "]";
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, id, list, name, userType, userId, userPw);
+		return Objects.hash(date, id, name, userType, userId, userPw);
 	}
 
 	// 동일성 비교 : 인스턴스 참조 값을 비교, ==사용
@@ -128,14 +127,6 @@ public class User implements Serializable{
 
 	public void setUserType(UserType userType) {
 		this.userType = userType;
-	}
-
-	public List<BoardList> getList() {
-		return list;
-	}
-
-	public void setList(List<BoardList> list) {
-		this.list = list;
 	}
 
 	public Date getDate() {

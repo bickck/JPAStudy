@@ -1,7 +1,11 @@
 package com.cos.blog.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GeneratorType;
 
 import com.cos.blog.User.User;
@@ -18,39 +23,43 @@ import com.cos.blog.User.User;
 public class BoardList {
 	
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "BOARD_ID")
-	private int id;
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "BOARDID")
+	private Long id;
 	
-	@Column(name = "LIST_NAME")
+	@Column(name = "LISTNAME")
 	private String head;
 	
 	@Column(name = "RECOMAND")
+	@ColumnDefault(value = "0")
 	private int recommand;
 	
-	@Column(name ="Body")
+	@Column(name ="BODY")
 	private String listBody;
 	
-	@ManyToOne
-	private User username;
-
+	@Column(name ="USERNAME")
+	private String userName;
 
 	
 	
-	public BoardList(String head, String listBody, User username) {
+	@OneToMany(mappedBy = "boardID")
+	private List<Reply> replies = new ArrayList<Reply>();
+	
+	
+	public BoardList(String head, String listBody, String username) {
 		super();
 		this.head = head;
 		this.listBody = listBody;
-		this.username = username;
+		this.userName = username;
 	}
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -85,13 +94,15 @@ public class BoardList {
 	}
 
 
-	public User getUsername() {
-		return username;
+	public String getUsername() {
+		return userName;
 	}
 
 
-	public void setUsername(User username) {
-		this.username = username;
+	public void setUsername(String username) {
+		this.userName = username;
 	}
 	
+	
+
 }

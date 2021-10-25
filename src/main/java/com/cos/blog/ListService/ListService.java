@@ -38,8 +38,10 @@ public class ListService {
 	
 	@Transactional
 	public void findBoardInfo()  {
-		User user = userRepository.getById((long) 0);
-		BoardList boardList = new BoardList("test", "testBody", user);
+		User user = new User("123","2134","1234",UserType.User);
+		userRepository.save(user);
+		
+		BoardList boardList = new BoardList("test", "testBody", user.getName());
 		saveBoard(boardList);
 		
 	}
